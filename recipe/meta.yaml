@@ -1,40 +1,46 @@
 {% set name = "argh" %}
-{% set version = "0.26.2" %}
-{% set hash_type = "sha256" %}
-{% set hash = "e9535b8c84dc9571a48999094fda7f33e63c3f1b74f3e5f3ac0105a58405bb65" %}
+{% set version = "0.29.4" %}
 
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/argh-{{ version }}.tar.gz
+  sha256: 695c0ae4534270cae2697841b4a56f434a990694a00264ea10ebbbcdc02c13f7
 
 build:
-  number: 1
-  script: pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
 
 requirements:
   host:
     - python
-    - setuptools
+    - flit_core >=3.2,<4
+    - pip
   run:
     - python
-    - argparse >=1.1  # [py26]
 
 test:
   imports:
     - argh
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/neithere/argh
-  license: LGPL 3
-  summary: The Natural CLI.
+  license: LGPL-3.0
+  license_file:
+    - COPYING.LESSER
+    - COPYING
+  license_family: LGPL
+  summary: An unobtrusive argparse wrapper with natural syntax
   description: |
     An argparse wrapper that doesn't make you say "argh" each time you deal with it.
-  doc_url: http://argh.readthedocs.io/en/latest/
+  doc_url: https://argh.readthedocs.io
+  dev_url: https://github.com/neithere/argh
 
 extra:
   recipe-maintainers:
