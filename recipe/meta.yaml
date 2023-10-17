@@ -20,7 +20,8 @@ requirements:
     - pip
   run:
     - python
-
+  run_constrained:
+    - argcomplete >=2.0
 test:
   imports:
     - argh
