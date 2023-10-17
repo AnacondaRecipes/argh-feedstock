@@ -31,7 +31,7 @@ test:
 
 about:
   home: https://github.com/neithere/argh
-  license: LGPL-3.0
+  license: LGPL-3.0-or-later
   license_file:
     - COPYING.LESSER
     - COPYING
