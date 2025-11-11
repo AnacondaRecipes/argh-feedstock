@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/argh-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: f30023d8be14ca5ee6b1b3eeab829151d7bbda464ae07dc4dd5347919c5892f9
 
 build:
@@ -25,12 +25,24 @@ requirements:
     - argcomplete >=2.0
 
 test:
+  source_files:
+    - tests
   imports:
     - argh
-  commands:
-    - pip check
+    - argh.assembling
+    - argh.completion
+    - argh.constants
+    - argh.dispatching
+    - argh.dto
+    - argh.exceptions
+    - argh.utils
   requires:
     - pip
+    - pytest >=7.4
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -ra -v --tb=short tests
 
 about:
   home: https://github.com/neithere/argh
